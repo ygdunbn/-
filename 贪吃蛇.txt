@@ -1,0 +1,206 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<Windows.h>
+#define wide 60
+#define long 26
+int e[105];
+int d[105];
+int i, j;
+int t;
+int h;
+int x = 22;
+int y = 33;
+void locatecursor(int w, int z) {
+	printf("%c[%d;%df", 27, w, z);
+}
+void line1() {
+	for (h = 1; h <= 50; h++) {
+				locatecursor(0,h);
+		printf("*");
+		locatecursor(50,h);
+		printf("*");
+
+	}
+}
+void line2() {
+	for (h = 0; h <= 50; h++) {
+		locatecursor(h, 0);
+		printf("*");
+		locatecursor(h, 50);
+		printf("*");
+	}
+}
+void up() {
+	locatecursor(e[t], d[t]);
+	printf(" ");
+	for (i = t; i > 0; i--) {
+		e[i] = e[i - 1];
+		d[i] = d[i - 1];
+	}
+	e[0]--;
+	for (i = 0; i < t+1; i++) {
+		locatecursor(e[i], d[i]);
+		printf("O");
+	}
+}
+void down() {
+	locatecursor(e[t], d[t]);
+	printf(" ");
+	for (i = t; i > 0; i--) {
+		e[i] = e[i - 1];
+		d[i] = d[i - 1];
+	}
+	e[0]++;
+	for (i = 0; i < t+1; i++) {
+		locatecursor(e[i], d[i]);
+		printf("O");
+	}
+}
+void left() {
+	locatecursor(e[t], d[t]);
+	printf(" ");
+	for (i = t; i > 0; i--) {
+		e[i] = e[i - 1];
+		d[i] = d[i - 1];
+	}
+	d[0]--;
+	for (i = 0; i < t+1; i++) {
+		locatecursor(e[i], d[i]);
+		printf("O");
+	}
+}
+void right() {
+	locatecursor(e[t], d[t]);
+	printf(" ");
+	for (i = t; i > 0; i--) {
+		e[i] = e[i - 1];
+		d[i] = d[i - 1];
+	}
+	d[0]++;
+	for (i = 0; i < t+1; i++) {
+		locatecursor(e[i], d[i]);
+		printf("O");
+	}
+}
+int a = 22;
+int b = 33;
+int rand1 = rand() % 24 + 1;
+int rand2 = rand() % 58 + 1;
+int main() {
+	t = 3;
+	e[0] = x;
+	for (i = 0; i < 104; i++) {
+		e[i + 1] = e[i];
+	}
+	d[0] = y;
+	for (i = 0; i < 104; i++) {
+		d[i + 1] = d[i];
+	}
+	char s[long][wide];
+	srand((unsigned)time(NULL));
+	int  temp1;
+	int  temp2;
+	line1();
+	line2();
+	int c = _getch();
+	while (1) {
+		if (e[0] == 0 || e[0] == 50 || d[0] == 0 || d[0] == 50) {
+			break;
+		}
+		if (c == 'w') {
+			while (1) {
+				up();
+				Sleep(20);
+				temp1 = rand1;
+				temp2 = rand2;
+				locatecursor(temp1, temp2);
+				printf("F");
+				if (e[0] == temp1 && d[0] == temp2) {
+					t++;
+					rand1 = rand() % 24 + 1;
+					rand2 = rand() % 48 + 1;
+				}
+				if (_kbhit()) {
+					c = _getch();
+					break;
+				}
+				if (e[0] == 0 || e[0] == 50 || d[0] == 0 || d[0] == 50) {
+					break;
+				}
+			}
+		}
+		if (c == 's') {
+			while (1) {
+				down();
+				Sleep(20);
+				temp1 = rand1;
+				temp2 = rand2;
+				locatecursor(temp1, temp2);
+				printf("F");
+				if (e[0] == temp1 && d[0] == temp2) {
+					t++;
+					rand1 = rand() % 24 + 1;
+					rand2 = rand() % 48 + 1;
+				}
+				if (_kbhit()) {
+					c = _getch();
+					break;
+				}
+				if (e[0] == 0 || e[0] == 50 || d[0] == 0 || d[0] == 50) {
+					break;
+				}
+			}
+		}
+		if (c == 'a') {
+			while (1) {
+				left();
+				Sleep(20);
+				temp1 = rand1;
+				temp2 = rand2;
+				locatecursor(temp1, temp2);
+				printf("F");
+				if (e[0] == temp1 && d[0] == temp2) {
+					t++;
+					rand1 = rand() % 24 + 1;
+					rand2 = rand() % 48 + 1;
+				}
+				if (_kbhit()) {
+					c = _getch();
+					break;
+				}
+				if (e[0] == 0 || e[0] == 50 || d[0] == 0 || d[0] == 50) {
+					break;
+				}
+			}
+		}
+		if (c == 'd') {
+			while (1) {
+				right();
+				Sleep(20);
+				temp1 = rand1;
+				temp2 = rand2;
+				locatecursor(temp1, temp2);
+				printf("F");
+				if (e[0] == temp1 && d[0] == temp2) {
+					t++;
+					rand1 = rand() % 24 + 1;
+					rand2 = rand() % 48 + 1;
+				}
+				if (_kbhit()) {
+					c = _getch();
+					break;
+				}
+				if (e[0] == 0 || e[0] == 50 || d[0] == 0 || d[0] == 50) {
+					break;
+				}
+			}
+		}
+	}
+	while (1) {
+
+		printf("傻逼张隆赤，这也能玩死\t");
+		Sleep(10);
+	}
+}
