@@ -200,7 +200,8 @@ int main() {
 	}
 	while (1) {
 
-		printf("傻逼张隆赤，这也能玩死\t");
+		printf("傻逼，这也能玩死\t");
 		Sleep(10);
 	}
 }
+
