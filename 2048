@@ -1,0 +1,142 @@
+#include<stdio.h>
+#include<windows.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<time.h>
+struct s{
+	int x;
+	int y;
+	int num;
+}c[6][6];
+char s[6][6];
+int leng, widh;
+void start() {
+	for (leng = 1; leng <= 4; leng++) {
+		for (widh = 1; widh <= 4; widh++) {
+			s[leng][widh] = 0;
+		}
+	}
+}
+void up(){
+	for (leng = 4; leng >= 2; leng--) {
+		for (widh = 1; widh <= 4; widh++) {
+			if (s[leng - 1][widh] == s[leng][widh]||s[leng-1][widh]==0) {
+				s[leng - 1][widh] = s[leng][widh]+s[leng-1][widh];
+				s[leng][widh] = 0;
+			}
+		}
+	}
+}
+void down() {
+	for (leng = 1; leng <= 3; leng++) {
+		for (widh = 1; widh <= 4; widh++) {
+			if (s[leng + 1][widh] == s[leng][widh] || s[leng + 1][widh] == 0) {
+				s[leng + 1][widh] += s[leng][widh];
+				s[leng][widh] = 0;
+			}
+		}
+	}
+}
+	void right(){
+		for (leng = 1; leng <= 4; leng++) {
+			for (widh = 1; widh <= 3; widh++) {
+				if (s[leng ][widh+1] == s[leng][widh] || s[leng ][widh+1] == 0) {
+					s[leng ][widh+1] += s[leng][widh];
+					s[leng][widh] = 0;
+				}
+			}
+		}
+	}
+	void left() {
+		for (leng = 1; leng <=4; leng++) {
+			for (widh = 4; widh >=2; widh--) {
+				if (s[leng ][widh-1] == s[leng][widh] || s[leng ][widh-1] == 0) {
+					s[leng ][widh-1] += s[leng][widh];
+					s[leng][widh] = 0;
+				}
+			}
+		}
+	}
+	void locatecursor(int w, int z) {
+		printf("%c[%d;%df", 27, w, z);
+	}
+	int i, j,h;
+	void line2() {
+		for (h = 1; h <= 6; h++) {
+			locatecursor(h, 1);
+			printf("*");
+			locatecursor(h, 6);
+			printf("*");
+		}
+	}
+	void line1() {
+		for (h = 1; h <= 6; h++) {
+			locatecursor(1, h);
+			printf("-");
+			locatecursor(6, h);
+			printf("-");
+		}
+	}
+	int k = 2;
+	void show() {
+		for (i = 2; i <= 5; i++) {
+			for (j = 2; j <=14; j+=4) {
+				locatecursor(i, j);
+				if (k <= 5) {
+					printf("%d", s[i - 1][k - 1]);
+				}
+				k++;
+			}
+			k = 2;
+		}
+	}
+	int main() {
+		int cont = 0;
+		srand((unsigned)time(NULL));
+		int rand1 = rand() % 3 + 1;
+		int rand2 = (rand()*2) % 3 + 1;
+		start();
+		s[rand1][rand2] = 2;
+		show();
+		while (1) {
+			while (1) {
+				 rand1 = rand() % 3 + 1;
+				 rand2 = (rand() * 2) % 3 + 1;
+				 if (s[rand1][rand2] == 0) {
+					 s[rand1][rand2] = 2;
+					 break;
+				 }
+			}
+			cont = 0;
+			int c = _getch();
+			system("cls");
+			if (c == 'w') {
+				while (cont <= 5) {
+					up();
+					cont++;
+				}
+				show();
+			}
+			if (c == 's') {
+				while (cont <= 5) {
+					down();
+					cont++;
+				}
+				show();
+			}
+			if (c == 'a') {
+				while (cont <= 5) {
+					left();
+					cont++;
+				}
+				show();
+			}
+			if (c == 'd') {
+				while (cont <= 5) {
+					right();
+					cont++;
+				}
+				show();
+			}
+		}
+	}
